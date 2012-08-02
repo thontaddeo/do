@@ -1,4 +1,4 @@
-package data_objects.drivers;
+8package data_objects.drivers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -683,11 +683,8 @@ public abstract class AbstractDriverDefinition implements DriverDefinition {
 
         RubyClass klazz = runtime.fastGetClass("DateTime");
 
-        IRubyObject rbOffset = runtime.fastGetClass("Rational").callMethod(
-                runtime.getCurrentContext(),
-                "new",
-                new IRubyObject[] { runtime.newFixnum(zoneOffset),
-                        runtime.newFixnum(86400) });
+        IRubyObject rbOffset = runtime.getKernel().callMethod("Rational",
+                runtime.newFixnum(zoneOffset), runtime.newFixnum(86400));
 
         return klazz.callMethod(runtime.getCurrentContext(), "civil",
                 new IRubyObject[] { runtime.newFixnum(stamp.getYear()),
